@@ -17,6 +17,33 @@ function Sidebar() {
     setPrevChats,
   } = useContext(MyContext);
   const navigate = useNavigate();
+  function removeTokenIfExpired() {
+    const token = localStorage.getItem("token");
+    console.log("Hello1");
+    if (!token) return false;
+    console.log("Step 2");
+    try {
+      // Decode the JWT payload
+      const payload = JSON.parse(atob(token.split(".")[1]));
+
+      // `exp` comes in seconds → convert to milliseconds
+      const expiryTime = payload.exp * 1000;
+      console.log(expiryTime);
+
+      // Check if expired
+      if (Date.now() > expiryTime) {
+        localStorage.removeItem("token");
+        console.log("Token removed: expired");
+        return false;
+      }
+    } catch (err) {
+      // If token is corrupted, remove it
+      localStorage.removeItem("token");
+      console.log("Invalid token removed");
+      return false;
+    }
+  }
+
   //Delete Thread
   const deleteThread = async (threadId) => {
     try {
@@ -46,8 +73,9 @@ function Sidebar() {
   //get all thread
   const getAllThread = async () => {
     try {
+      const removeExpToken = removeTokenIfExpired();
       const token = localStorage.getItem("token");
-      if (!token) {
+      if (!token && !removeExpToken) {
         let aler = true;
         setTimeout(() => {
           if (aler) {

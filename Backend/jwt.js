@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 // This functio n will help to generate jwt token
 const generateToken = (userData) => {
-  return jwt.sign({ userData }, process.env.JWTSECRET, { expiresIn: 55000 });
+  return jwt.sign({ userData }, process.env.JWTSECRET, { expiresIn: "15h" });
 };
 // This function is used to provide protection to routes
 const jwtAuthMiddleware = (req, res, next) => {
