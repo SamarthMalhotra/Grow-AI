@@ -1,29 +1,61 @@
-.chats{
-    max-width:700px;
-    overflow-y:auto;
-    scrollbar-width:thin;
-    scrollbar-color:black transparent;
-    padding:10rem;
-    line-height:2rem;     
+.chats {
+  max-width: 700px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
+  padding: 10rem;
+  line-height: 2rem;
+}
+.userDiv {
+  display: flex;
+  justify-content: flex-end;
+}
+.gptDiv {
+  text-align: left;
+  font-size: 0.9rem;
+}
+.userMessage {
+  background-color: #323232;
+  padding: 10px 20px;
+  margin-left: 18rem;
+  border-radius: 15px;
+  width: fit-Content;
+  max-width: 520px;
+}
+.hljs {
+  border-radius: 15px;
+}
+@media (max-width: 576px) {
+  .chats {
+    max-width: 100%;
+    padding: 2rem 1rem; /* reduced padding for mobile */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: black transparent;
+    line-height: 1.8rem;
+  }
 
-}
-.userDiv{
-    display:flex;
-    justify-content:flex-end;
-}
-.gptDiv{
-    text-align:left;
-    font-size:0.9rem;
-}
-.userMessage{
-    background-color:#323232;
-    padding:10px 20px;
-    margin-left:18rem;
-    border-radius:15px;
-    width:fit-Content;
-    max-width:520px;
-}
-.hljs{
-    border-radius:15px;
-    
+  .userDiv {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .gptDiv {
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .userMessage {
+    background-color: #323232;
+    padding: 10px 15px;
+    margin-left: 0; /* remove large left margin on mobile */
+    border-radius: 15px;
+    width: fit-content;
+    max-width: 90%; /* fit mobile screen */
+  }
+
+  .hljs {
+    border-radius: 15px;
+    font-size: 0.85rem; /* optional: slightly smaller code font */
+  }
 }

@@ -11,7 +11,10 @@ router.get("/thread", jwtAuthMiddleware, async (req, res) => {
     const userData = req.user.userData;
     const userInfo = await User.findOne({ email: userData.email });
     // const threads = await Thread.find({}).sort({ updatedAt: -1 });
-    const userThread = await userInfo.populate("threads");
+    const userThread = await userInfo.populate({
+      path: "threads",
+      options: { sort: { updatedAt: -1 } },
+    });
     //desending of updateAt ...most recent data on to
     res.json(userThread.threads);
   } catch (err) {

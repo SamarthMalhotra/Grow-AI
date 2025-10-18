@@ -4,9 +4,18 @@ import Chat from "./Chat.jsx";
 import { useContext, useState, useEffect } from "react";
 import { ScaleLoader } from "react-spinners";
 import { Link } from "react-router-dom";
+import { BiExit } from "react-icons/bi";
+import Sidebar from "./Sidebar";
 function ChatWindow() {
-  const { prompt, setPrompt, reply, setReply, currThreadId, setPrevChats } =
-    useContext(MyContext);
+  const {
+    prompt,
+    setPrompt,
+    reply,
+    setReply,
+    currThreadId,
+    setPrevChats,
+    setSidebar,
+  } = useContext(MyContext);
   const [isOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const getReply = async () => {
@@ -56,6 +65,9 @@ function ChatWindow() {
   return (
     <div className={styles["chatWindow"]}>
       <div className={styles["navbar"]}>
+        <span className={styles["sideBarIcon"]}>
+          <BiExit onClick={() => setSidebar((prev) => !prev)} />
+        </span>
         <span>
           Grow AI<i className="fa-solid fa-chevron-down"></i>
         </span>

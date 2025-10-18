@@ -1,5 +1,6 @@
 import styles from "./Sidebar.module.css";
 import { v4 as uuidv4 } from "uuid";
+import { RiCloseLine } from "react-icons/ri";
 import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,9 @@ function Sidebar() {
     setPrompt,
     setReply,
     setCurrThreadId,
+    setSidebar,
     setPrevChats,
+    sidebar,
   } = useContext(MyContext);
   const navigate = useNavigate();
   function removeTokenIfExpired() {
@@ -146,44 +149,59 @@ function Sidebar() {
     setCurrThreadId(uuidv4());
     setPrevChats([]);
   };
-
+  console.log(sidebar);
   return (
-    <section className={styles["sidebar"]}>
-      <button onClick={createNewChat}>
-        <img
-          src="src/assets/blacklogo.png"
-          className={styles["logo"]}
-          alt="gpt logo"
-        ></img>
-        <span>
-          {" "}
-          <i className="fa-solid fa-pen-to-square"></i>
-        </span>
-      </button>
-      <ul className={styles["history"]}>
-        {allThread?.map((thread, idx) => (
-          <li
-            onClick={() => changeThread(thread.threadId)}
-            key={idx}
-            className={
-              thread.threadId === currThreadId ? styles["highlighted"] : ""
-            }
+    <>
+      <section className={`${styles.sidebar} ${sidebar ? styles.active : ""}`}>
+        <button onClick={createNewChat}>
+          <img
+            src="src/assets/blacklogo.png"
+            className={styles["logo"]}
+            alt="gpt logo"
+          ></img>
+          <span>
+            {" "}
+            <i className="fa-solid fa-pen-to-square"></i>
+          </span>
+        </button>
+        <ul className={styles["history"]}>
+          {allThread?.map((thread, idx) => (
+            <li
+              onClick={() => changeThread(thread.threadId)}
+              key={idx}
+              className={
+                thread.threadId === currThreadId ? styles["highlighted"] : ""
+              }
+            >
+              {thread.title}
+              <i
+                className={`fa-solid fa-trash ${styles["fa-trash"]}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteThread(thread.threadId);
+                }}
+              ></i>
+            </li>
+          ))}
+        </ul>
+        <div className={styles["sign"]}>
+          <p>By Grow AI &hearts;</p>
+        </div>
+        {sidebar && (
+          <span
+            style={{
+              position: "absolute",
+              top: "0.5rem",
+              right: "0.5rem",
+              zIndex: "2000",
+              fontSize: "2.5rem",
+            }}
           >
-            {thread.title}
-            <i
-              className={`fa-solid fa-trash ${styles["fa-trash"]}`}
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteThread(thread.threadId);
-              }}
-            ></i>
-          </li>
-        ))}
-      </ul>
-      <div className={styles["sign"]}>
-        <p>By Grow AI &hearts;</p>
-      </div>
-    </section>
+            <RiCloseLine onClick={() => setSidebar((prev) => !prev)} />
+          </span>
+        )}
+      </section>
+    </>
   );
 }
 export default Sidebar;

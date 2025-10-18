@@ -8,6 +8,7 @@ export function MyContextProvider({ children }) {
   const [prompt, setPrompt] = useState("");
   const [allThread, setAllThread] = useState([]);
   const [reply, setReply] = useState(null);
+  const [sidebar, setSidebar] = useState(false);
   const [currThreadId, setCurrThreadId] = useState(uuidv4());
   const providerValues = useMemo(
     () => ({
@@ -23,8 +24,10 @@ export function MyContextProvider({ children }) {
       setPrevChats,
       allThread,
       setAllThread,
+      sidebar,
+      setSidebar,
     }),
-    [prompt, reply, currThreadId, newChat, prevChats, allThread]
+    [prompt, reply, currThreadId, newChat, prevChats, allThread, sidebar]
   );
   return (
     <MyContext.Provider value={providerValues}>{children}</MyContext.Provider>

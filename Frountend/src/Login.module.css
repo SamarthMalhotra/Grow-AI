@@ -1,48 +1,106 @@
-.bigbox{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:1.2rem;
-    font-weight:540;
-    background-color:#212121;   
+.bigbox {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 540;
+  background-color: #212121;
 }
-.bigbox form{
-    background-color:snow;
-    width:35vw;
-    border:2px solid black;
-    padding:2rem;
-    border-radius:0.5rem;
-    box-shadow:-8px -8px 2px white;
-    display:flex;
-    justify-content:center;
-    flex-direction:column;
+.bigbox form {
+  background-color: snow;
+  width: 35vw;
+  border: 2px solid black;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: -8px -8px 2px white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
-.inputBox label{
-    display:inline-block;
-    width:400px;
-    color:black;
+.inputBox label {
+  display: inline-block;
+  width: 400px;
+  color: black;
 }
-.inputBox input{
-      border:2px solid black;
-      border-radius:0.3rem;
-      padding:0.5rem;
-      margin-top:0.5rem; 
-      width:60%;
-      color:black;
+.inputBox input {
+  border: 2px solid black;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  width: 60%;
+  color: black;
 }
-.submitButt button{
-   width:100px;
-   height:2.5rem;
-   color:black;
-   text-align:center;
-   font-size:1.5rem;
-   background-color:rgb(226, 221, 221);
-   padding:0.25rem;
-   border-radius:0.5rem;
+.submitButt button {
+  width: 100px;
+  height: 2.5rem;
+  color: black;
+  text-align: center;
+  font-size: 1.5rem;
+  background-color: rgb(226, 221, 221);
+  padding: 0.25rem;
+  border-radius: 0.5rem;
 }
-.submitButt button:hover{
-    color:whitesmoke;
-    background-color:rgb(151, 249, 4);
-    font-weight:500;
+.submitButt button:hover {
+  color: whitesmoke;
+  background-color: rgb(151, 249, 4);
+  font-weight: 500;
+}
+@media (max-width: 576px) {
+  .bigbox {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem; /* smaller font for mobile */
+    font-weight: 500;
+    background-color: #212121;
+    padding: 1rem;
+  }
+
+  .bigbox form {
+    background-color: snow;
+    width: 90%; /* almost full width on mobile */
+    border: 2px solid black;
+    padding: 1.5rem; /* reduced padding */
+    border-radius: 0.5rem;
+    box-shadow: -4px -4px 2px white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .inputBox label {
+    display: block;
+    width: 100%; /* full width on mobile */
+    color: black;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .inputBox input {
+    border: 2px solid black;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem; /* space between inputs */
+    width: 100%; /* full width */
+    color: black;
+  }
+
+  .submitButt button {
+    width: 100%; /* full width button */
+    height: 2.5rem;
+    color: black;
+    text-align: center;
+    font-size: 1.2rem;
+    background-color: rgb(226, 221, 221);
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+  }
+
+  .submitButt button:hover {
+    color: whitesmoke;
+    background-color: rgb(151, 249, 4);
+    font-weight: 500;
+  }
 }

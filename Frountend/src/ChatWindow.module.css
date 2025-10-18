@@ -105,3 +105,38 @@ input:focus {
   background-color: rgba(180, 180, 180, 0.1);
   border-radius: 6px;
 }
+.sideBarIcon {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .chatWindow {
+    width: 100% !important;
+    padding: 1rem;
+  }
+
+  .userIconDiv {
+    margin-top: 1rem;
+  }
+
+  .inputBox {
+    max-width: 100%;
+  }
+
+  .dropDown {
+    right: 2rem;
+    top: 3.5rem;
+    width: 140px;
+  }
+
+  .navbar span {
+    margin: 0.5rem;
+  }
+
+  .sideBarIcon {
+    display: inline;
+    font-size: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+}
