@@ -4,6 +4,7 @@ import { RiCloseLine } from "react-icons/ri";
 import { useContext, useEffect } from "react";
 import { MyContext } from "./MyContext";
 import { useNavigate } from "react-router-dom";
+import server from "./environment.js";
 
 function Sidebar() {
   // Context
@@ -51,16 +52,13 @@ function Sidebar() {
   const deleteThread = async (threadId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:8080/api/thread/${threadId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${server}/api/thread/${threadId}`, {
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const res = await response.json();
       //Update Thread re-render
       setAllThread((prev) =>
@@ -89,7 +87,7 @@ function Sidebar() {
         }, 4000);
         return; // Stop if token is missing
       }
-      const response = await fetch("http://localhost:8080/api/thread", {
+      const response = await fetch(`${server}/api/thread`, {
         method: "GET",
         headers: {
           "content-type": "application/json",
@@ -122,17 +120,14 @@ function Sidebar() {
     setCurrThreadId(newThreadId);
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:8080/api/thread/${newThreadId}`,
-        {
-          method: "GET",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: undefined,
-        }
-      );
+      const response = await fetch(`${server}/api/thread/${newThreadId}`, {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: undefined,
+      });
       const res = await response.json();
       setPrevChats(res);
       setNewChat(false);
@@ -155,7 +150,7 @@ function Sidebar() {
       <section className={`${styles.sidebar} ${sidebar ? styles.active : ""}`}>
         <button onClick={createNewChat}>
           <img
-            src="src/assets/blacklogo.png"
+            src="src/assets/Logo.jpg"
             className={styles["logo"]}
             alt="gpt logo"
           ></img>

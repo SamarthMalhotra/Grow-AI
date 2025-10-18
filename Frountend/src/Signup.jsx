@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import server from "./environment.js";
 import styles from "./Signup.module.css";
 function Signup() {
   const [username, setUserName] = useState("");
@@ -33,10 +34,7 @@ function Signup() {
     setPassword("");
     setUserName("");
     try {
-      const response = await fetch(
-        "http://localhost:8080/api/auth/signup",
-        options
-      );
+      const response = await fetch(`${server}/api/auth/signup`, options);
       if (response.ok) {
         let data = await response.json();
         // Example frontend response handler

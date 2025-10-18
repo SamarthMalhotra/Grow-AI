@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
+import server from "./environment.js";
 import { useState } from "react";
 function Login() {
   const [email, setEmail] = useState("");
@@ -25,10 +26,7 @@ function Login() {
           password: password,
         }),
       };
-      const response = await fetch(
-        "http://localhost:8080/api/auth/login",
-        options
-      );
+      const response = await fetch(`${server}/api/auth/login`, options);
       if (response.ok) {
         const res = await response.json();
         localStorage.setItem("token", res.token);
