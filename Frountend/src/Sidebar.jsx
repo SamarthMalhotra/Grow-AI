@@ -144,7 +144,6 @@ function Sidebar() {
     setCurrThreadId(uuidv4());
     setPrevChats([]);
   };
-  console.log(sidebar);
   return (
     <>
       <section className={`${styles.sidebar} ${sidebar ? styles.active : ""}`}>
