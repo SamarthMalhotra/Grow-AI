@@ -150,7 +150,7 @@ function Sidebar() {
       <section className={`${styles.sidebar} ${sidebar ? styles.active : ""}`}>
         <button onClick={createNewChat}>
           <img
-            src="src/assets/Logo.jpg"
+            src="https://res.cloudinary.com/duryxhwcp/image/upload/v1760851422/Logo_yx3jib.jpg"
             className={styles["logo"]}
             alt="gpt logo"
           ></img>
