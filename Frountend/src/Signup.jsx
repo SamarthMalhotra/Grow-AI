@@ -43,7 +43,7 @@ function Signup() {
         navigate("/");
       } else {
         let data = await response.json();
-        console.log(data);
+        // console.log(data);
         navigate("/auth/signup");
         alert(`Sorry Try Again  ${data.message}`);
       }

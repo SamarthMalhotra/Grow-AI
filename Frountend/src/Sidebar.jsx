@@ -23,21 +23,21 @@ function Sidebar() {
   const navigate = useNavigate();
   function removeTokenIfExpired() {
     const token = localStorage.getItem("token");
-    console.log("Hello1");
+    //console.log("Hello1");
     if (!token) return false;
-    console.log("Step 2");
+    //console.log("Step 2");
     try {
       // Decode the JWT payload
       const payload = JSON.parse(atob(token.split(".")[1]));
 
       // `exp` comes in seconds → convert to milliseconds
       const expiryTime = payload.exp * 1000;
-      console.log(expiryTime);
+      // console.log(expiryTime);
 
       // Check if expired
       if (Date.now() > expiryTime) {
         localStorage.removeItem("token");
-        console.log("Token removed: expired");
+        //console.log("Token removed: expired");
         return false;
       }
     } catch (err) {
@@ -105,7 +105,7 @@ function Sidebar() {
       } else {
         // Handle backend error messages
         const errorText = await response.json();
-        console.log("Hello", errorText.message);
+        //console.log("Hello", errorText.message);
       }
     } catch (e) {
       console.log("Fetch error:", e);

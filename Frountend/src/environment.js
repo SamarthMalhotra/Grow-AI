@@ -1,6 +1,6 @@
-const is_Prod = false;
+const is_Prod = true;
 const server = is_Prod
-  ? "http://localhost:8080"
-  : "https://grow-aibackend.onrender.com";
+  ? "https://grow-aibackend.onrender.com"
+  : "http://localhost:8080";
 
 export default server;
