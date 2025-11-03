@@ -30,9 +30,6 @@ function Signup() {
         password: password,
       }),
     };
-    setEmail("");
-    setPassword("");
-    setUserName("");
     try {
       const response = await fetch(`${server}/api/auth/signup`, options);
       if (response.ok) {
@@ -40,6 +37,7 @@ function Signup() {
         // Example frontend response handler
         localStorage.setItem("token", data.token);
         // navigate to home
+        alert("Welcome on Grow AI");
         navigate("/");
       } else {
         let data = await response.json();
@@ -47,6 +45,10 @@ function Signup() {
         navigate("/auth/signup");
         alert(`Sorry Try Again  ${data.message}`);
       }
+
+      setEmail("");
+      setPassword("");
+      setUserName("");
       // Code is Remaining
     } catch (err) {
       console.log(`Error : ${err}`);

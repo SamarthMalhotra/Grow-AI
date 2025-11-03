@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./Login.module.css";
 import server from "./environment.js";
 import { useState } from "react";
@@ -34,9 +34,16 @@ function Login() {
         alert("Welcome on Grow AI");
       } else {
         const res = await response.json();
-        alert(`Error: ${res.message}`);
-        navigate("/auth/signup");
+        if (res.message === "Incorrect Password") {
+          alert(`Error: ${res.message}` + " Try Again");
+          navigate("/auth/login");
+        } else {
+          alert(`Error: ${res.message}` + " Sign Up First");
+          navigate("/auth/signup");
+        }
       }
+      setEmail("");
+      setPassword("");
     } catch (err) {
       alert(err.message);
     }
@@ -72,6 +79,15 @@ function Login() {
           <br />
           <div className={styles["submitButt"]}>
             <button type="submit"> Submit</button>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <span style={{ color: "black" }}>New user can go for signup</span>
+            <Link
+              to="/auth/signup"
+              style={{ color: "red", fontWeight: "bold" }}
+            >
+              &nbsp;Signup
+            </Link>
           </div>
         </form>
       </div>

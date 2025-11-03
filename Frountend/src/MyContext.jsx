@@ -33,7 +33,6 @@ export function MyContextProvider({ children }) {
     } catch (err) {
       // If token is corrupted, remove it
       localStorage.removeItem("token");
-      console.log("Invalid token removed");
       return false;
     }
   }
