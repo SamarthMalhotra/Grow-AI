@@ -41,23 +41,23 @@ function ChatWindow() {
     }
     setLoader(false);
   };
-  //Append new Chat to prevChats
-  useEffect(() => {
-    if (prompt && reply) {
-      setPrevChats((prevChats) => [
-        ...prevChats,
-        {
-          role: "user",
-          content: prompt,
-        },
-        {
-          role: "assistant",
-          content: reply,
-        },
-      ]);
-    }
-    setPrompt("");
-  }, [reply]);
+  // //Append new Chat to prevChats
+  // useEffect(() => {
+  //   if (prompt && reply) {
+  //     setPrevChats((prevChats) => [
+  //       ...prevChats,
+  //       {
+  //         role: "user",
+  //         content: prompt,
+  //       },
+  //       {
+  //         role: "assistant",
+  //         content: reply,
+  //       },
+  //     ]);
+  //   }
+  //   setPrompt("");
+  // }, [reply]);
 
   const handleProfileClick = () => {
     setIsOpen(!isOpen);
