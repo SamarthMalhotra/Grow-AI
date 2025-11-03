@@ -7,15 +7,8 @@ import { Link } from "react-router-dom";
 import { BiExit } from "react-icons/bi";
 import server from "./environment.js";
 function ChatWindow() {
-  const {
-    prompt,
-    setPrompt,
-    reply,
-    setReply,
-    currThreadId,
-    setPrevChats,
-    setSidebar,
-  } = useContext(MyContext);
+  const { prompt, setPrompt, setReply, currThreadId, setSidebar } =
+    useContext(MyContext);
   const [isOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const getReply = async () => {
@@ -41,23 +34,6 @@ function ChatWindow() {
     }
     setLoader(false);
   };
-  // //Append new Chat to prevChats
-  // useEffect(() => {
-  //   if (prompt && reply) {
-  //     setPrevChats((prevChats) => [
-  //       ...prevChats,
-  //       {
-  //         role: "user",
-  //         content: prompt,
-  //       },
-  //       {
-  //         role: "assistant",
-  //         content: reply,
-  //       },
-  //     ]);
-  //   }
-  //   setPrompt("");
-  // }, [reply]);
 
   const handleProfileClick = () => {
     setIsOpen(!isOpen);

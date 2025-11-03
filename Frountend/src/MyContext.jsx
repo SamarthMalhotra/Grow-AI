@@ -10,22 +10,6 @@ export function MyContextProvider({ children }) {
   const [reply, setReply] = useState(null);
   const [sidebar, setSidebar] = useState(false);
   const [currThreadId, setCurrThreadId] = useState(uuidv4());
-  useEffect(() => {
-    if (prompt && reply) {
-      setPrevChats((prevChats) => [
-        ...prevChats,
-        {
-          role: "user",
-          content: prompt,
-        },
-        {
-          role: "assistant",
-          content: reply,
-        },
-      ]);
-    }
-    setPrompt("");
-  }, [reply]);
 
   function removeTokenIfExpired() {
     const token = localStorage.getItem("token");
@@ -53,6 +37,23 @@ export function MyContextProvider({ children }) {
       return false;
     }
   }
+  //Append new Chat to prevChats
+  useEffect(() => {
+    if (prompt && reply) {
+      setPrevChats((prevChats) => [
+        ...prevChats,
+        {
+          role: "user",
+          content: prompt,
+        },
+        {
+          role: "assistant",
+          content: reply,
+        },
+      ]);
+    }
+    setPrompt("");
+  }, [reply]);
   const providerValues = useMemo(
     () => ({
       prompt,
