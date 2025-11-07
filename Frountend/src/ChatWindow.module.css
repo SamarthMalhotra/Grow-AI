@@ -105,6 +105,14 @@ input:focus {
   background-color: rgba(180, 180, 180, 0.1);
   border-radius: 6px;
 }
+.dropDownItemActive {
+  font-size: 0.9rem;
+  margin: 0.3rem 0rem;
+  padding: 0.5rem 0.2rem;
+  color: White;
+  background-color: #339cff;
+  cursor: pointer;
+}
 .sideBarIcon {
   display: none;
 }

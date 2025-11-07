@@ -10,23 +10,9 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const app = express();
 //
 app.use(express.json());
-// const allowedOrigins = [
-//   "http://localhost:8080",
-//   "https://grow-aibackend.onrender.com",
 // ];
 //
 app.use(express.urlencoded({ extended: true }));
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   allowedHeaders: ["Content-Type", "Authorization"],
-// };
 const port = process.env.PORT;
 
 // app.use(cors(corsOptions));

@@ -2,8 +2,10 @@ import { useNavigate, Link } from "react-router-dom";
 import styles from "./Login.module.css";
 import server from "./environment.js";
 import { useState } from "react";
+import { FadeLoader } from "react-spinners";
 function Login() {
   const [email, setEmail] = useState("");
+  const [contrast, setContrast] = useState(false);
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
 
@@ -15,6 +17,7 @@ function Login() {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setContrast(true);
     try {
       const options = {
         method: "POST",
@@ -50,47 +53,64 @@ function Login() {
   };
   return (
     <>
-      <div className={styles["bigbox"]}>
-        <form onSubmit={handleSubmit}>
-          <h2 style={{ color: "black" }}>Login</h2>
-          <div className={styles["inputBox"]}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              placeholder="enter correct email"
-              id="email"
-              value={email}
-              onChange={emailChange}
-              required
-            ></input>
+      {contrast && (
+        <div className={styles["loader"]}>
+          <FadeLoader height={30}></FadeLoader>{" "}
+        </div>
+      )}
+      {!contrast && (
+        <>
+          <div className={styles["bigbox"]}>
+            <form onSubmit={handleSubmit}>
+              <h2 style={{ color: "black" }}>Login</h2>
+              <div className={styles["inputBox"]}>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  placeholder="enter correct email"
+                  id="email"
+                  value={email}
+                  onChange={emailChange}
+                  required
+                ></input>
+              </div>
+              <br />
+              <div className={styles["inputBox"]}>
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  value={password}
+                  onChange={passwordChange}
+                  required
+                ></input>
+              </div>
+              <br />
+              <div className={styles["submitButt"]}>
+                <button
+                  type="submit"
+                  className={contrast ? styles["contrast"] : ""}
+                >
+                  {" "}
+                  Submit
+                </button>
+              </div>
+              <div style={{ marginTop: "10px" }}>
+                <span style={{ color: "black" }}>
+                  New user can go for signup
+                </span>
+                <Link
+                  to="/auth/signup"
+                  style={{ color: "red", fontWeight: "bold" }}
+                >
+                  &nbsp;Signup
+                </Link>
+              </div>
+            </form>
           </div>
-          <br />
-          <div className={styles["inputBox"]}>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              value={password}
-              onChange={passwordChange}
-              required
-            ></input>
-          </div>
-          <br />
-          <div className={styles["submitButt"]}>
-            <button type="submit"> Submit</button>
-          </div>
-          <div style={{ marginTop: "10px" }}>
-            <span style={{ color: "black" }}>New user can go for signup</span>
-            <Link
-              to="/auth/signup"
-              style={{ color: "red", fontWeight: "bold" }}
-            >
-              &nbsp;Signup
-            </Link>
-          </div>
-        </form>
-      </div>
+        </>
+      )}
     </>
   );
 }

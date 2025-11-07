@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import server from "./environment.js";
 import styles from "./Signup.module.css";
+import { FadeLoader } from "react-spinners";
 function Signup() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [contrast, setContrast] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const userFieldChange = (event) => {
@@ -19,6 +21,7 @@ function Signup() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setContrast(true);
     const options = {
       method: "POST",
       headers: {
@@ -56,52 +59,67 @@ function Signup() {
   };
   return (
     <>
-      <div className={styles["bigbox"]}>
-        <form className={styles["box"]} onSubmit={handleSubmit}>
-          <h2 style={{ color: "black" }}>Sign Up</h2>
+      {contrast && (
+        <div className={styles["loader"]}>
+          <FadeLoader height={30}></FadeLoader>{" "}
+        </div>
+      )}
+      {!contrast && (
+        <>
+          <div className={styles["bigbox"]}>
+            <form className={styles["box"]} onSubmit={handleSubmit}>
+              <h2 style={{ color: "black" }}>Sign Up</h2>
 
-          <div className={styles["inputBox"]}>
-            {" "}
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              placeholder="Username"
-              id="username"
-              value={username}
-              onChange={userFieldChange}
-              required
-            ></input>
+              <div className={styles["inputBox"]}>
+                {" "}
+                <label htmlFor="username">Username:</label>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  id="username"
+                  value={username}
+                  onChange={userFieldChange}
+                  required
+                ></input>
+              </div>
+              <br />
+              <div className={styles["inputBox"]}>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  placeholder="enter correct email"
+                  id="email"
+                  value={email}
+                  onChange={emailChange}
+                  required
+                ></input>
+              </div>
+              <br />
+              <div className={styles["inputBox"]}>
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  value={password}
+                  onChange={passwordChange}
+                  required
+                ></input>
+              </div>
+              <br />
+              <div className={styles["submitButt"]}>
+                <button
+                  type="submit"
+                  className={contrast ? styles["contrast"] : ""}
+                >
+                  {" "}
+                  Submit
+                </button>
+              </div>
+            </form>
           </div>
-          <br />
-          <div className={styles["inputBox"]}>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              placeholder="enter correct email"
-              id="email"
-              value={email}
-              onChange={emailChange}
-              required
-            ></input>
-          </div>
-          <br />
-          <div className={styles["inputBox"]}>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              value={password}
-              onChange={passwordChange}
-              required
-            ></input>
-          </div>
-          <br />
-          <div className={styles["submitButt"]}>
-            <button type="submit"> Submit</button>
-          </div>
-        </form>
-      </div>
+        </>
+      )}
     </>
   );
 }

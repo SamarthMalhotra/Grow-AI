@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/signup.js";
 import passport from "passport";
 import { generateToken } from "../jwt.js";
+import { jwtAuthMiddleware } from "../jwt.js";
 const router = express.Router();
 
 //This is signup route
@@ -72,6 +73,19 @@ router.post("/login", (req, res, next) => {
       }
     }
   )(req, res, next); //this executes passport.authenticate
+});
+
+router.post("/logout", jwtAuthMiddleware, async (req, res) => {
+  let userData = req.user.userData;
+  try {
+    const userInfo = await User.findOne({ email: userData.email });
+    if (userInfo == null) {
+      return res.status(401).json("User not found");
+    }
+    return res.status(200).json("Logout");
+  } catch (err) {
+    res.status(500).json("Internal Server Error");
+  }
 });
 
 export default router;

@@ -43,8 +43,19 @@
 }
 .submitButt button:hover {
   color: whitesmoke;
-  background-color: rgb(151, 249, 4);
+  background-color: #0d6efd;
   font-weight: 500;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 100vh;
+}
+.submitButt .contrast {
+  background-color: #0d6efd;
+  color: white;
 }
 @media (max-width: 576px) {
   .bigbox {
@@ -100,7 +111,7 @@
 
   .submitButt button:hover {
     color: whitesmoke;
-    background-color: rgb(151, 249, 4);
+    background-color: #0d6efd;
     font-weight: 500;
   }
 }

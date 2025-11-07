@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 // This functio n will help to generate jwt token
 const generateToken = (userData) => {
   return jwt.sign({ userData }, process.env.JWTSECRET, { expiresIn: "15h" });
@@ -14,11 +15,12 @@ const jwtAuthMiddleware = (req, res, next) => {
     res.status(401).json({ message: "Unauthorized" });
   }
   try {
-    // verify the JWT Token
+    //verify the JWT
     const decode = jwt.verify(token, process.env.JWTSECRET);
     req.user = decode;
     next();
   } catch (err) {
+    console.log(err);
     res.status(401).json({ error: "Invalid token" });
   }
 };

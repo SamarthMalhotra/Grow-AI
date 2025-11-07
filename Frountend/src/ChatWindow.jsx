@@ -1,7 +1,7 @@
 import styles from "./ChatWindow.module.css";
 import { MyContext } from "./MyContext.jsx";
 import Chat from "./Chat.jsx";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { ScaleLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { BiExit } from "react-icons/bi";
@@ -11,30 +11,55 @@ function ChatWindow() {
     useContext(MyContext);
   const [isOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [contrast, setContrast] = useState(false);
+
+  //IT is a function whic  is used to  get the reply from API
   const getReply = async () => {
-    setLoader(true);
-    const token = localStorage.getItem("token");
+    if (prompt.length > 0) {
+      setLoader(true);
+      const token = localStorage.getItem("token");
+      const options = {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: prompt,
+          threadId: currThreadId,
+        }),
+      };
+      try {
+        const response = await fetch(`${server}/api/chat`, options);
+        const res = await response.json();
+        setReply(res.reply);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    setLoader(false);
+  };
+  // This function is use to handleLogout
+  const handleLogout = async () => {
+    setContrast(true);
+    let token = localStorage.getItem("token");
     const options = {
       method: "POST",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        message: prompt,
-        threadId: currThreadId,
-      }),
     };
     try {
-      const response = await fetch(`${server}/api/chat`, options);
-      const res = await response.json();
-      setReply(res.reply);
+      const data = await fetch(`${server}/api/auth/logout`, options);
+      if (data.ok) {
+        localStorage.removeItem("token");
+        window.location.reload();
+      }
     } catch (err) {
       console.log(err);
     }
-    setLoader(false);
   };
-
   const handleProfileClick = () => {
     setIsOpen(!isOpen);
   };
@@ -75,7 +100,12 @@ function ChatWindow() {
           <div className={styles["dropDownItem"]}>
             <i className="fa-solid fa-gear"></i> Setting{" "}
           </div>
-          <div className={styles["dropDownItem"]}>
+          <div
+            className={
+              !contrast ? styles["dropDownItem"] : styles["dropDownItemActive"]
+            }
+            onClick={handleLogout}
+          >
             <i className="fa-solid fa-arrow-right-from-bracket"></i> Log Out
           </div>
         </div>
@@ -88,9 +118,22 @@ function ChatWindow() {
             placeholder="Ask anything"
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            onKeyDown={(e) => (e.key === "Enter" ? getReply() : "")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (!loader) {
+                  getReply();
+                }
+              }
+            }}
           ></input>
-          <div className={styles["submit"]} onClick={getReply}>
+          <div
+            className={styles["submit"]}
+            onClick={() => {
+              if (!loader) {
+                getReply();
+              }
+            }}
+          >
             <i className="fa-solid fa-paper-plane"></i>
           </div>
         </div>
