@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Free AI Chatbot</title>
+  </head>
+  <body>
+    <input id="msg" placeholder="Ask something..." />
+    <button onclick="send()">Send</button>
+    <pre id="out"></pre>
+
+    <script src="https://js.puter.com/v2/"></script>
+    <script>
+      function send() {
+        const msg = document.getElementById("msg").value;
+        puter.ai.chat(msg).then((res) => {
+          document.getElementById("out").textContent = res;
+        });
+      }
+    </script>
+  </body>
+</html>

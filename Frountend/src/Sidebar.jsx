@@ -158,15 +158,7 @@ function Sidebar() {
           <p>By Grow AI &hearts;</p>
         </div>
         {sidebar && (
-          <span
-            style={{
-              position: "absolute",
-              top: "0.5rem",
-              right: "0.5rem",
-              zIndex: "2000",
-              fontSize: "2.5rem",
-            }}
-          >
+          <span className={styles["sidebarIcon"]}>
             <RiCloseLine onClick={() => setSidebar((prev) => !prev)} />
           </span>
         )}
