@@ -1,3 +1,5 @@
+/* The code you provided is a React component called `ChatWindow`. Here is a breakdown of what the code
+is doing: */
 import styles from "./ChatWindow.module.css";
 import { MyContext } from "./MyContext.jsx";
 import Chat from "./Chat.jsx";
