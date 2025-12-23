@@ -24,9 +24,11 @@ router.post("/signup", async (req, res) => {
       password,
     });
     const userdata = await newUser.save();
-    res
-      .status(200)
-      .json({ success: "You signup is done successfully", token: token });
+    res.status(200).json({
+      success: true,
+      message: "You signup is done successfully",
+      token: token,
+    });
   } catch (e) {
     if (e.code === 11000) {
       const field = Object.keys(e.keyPattern)[0];
@@ -78,7 +80,7 @@ router.post("/login", (req, res, next) => {
 router.post("/logout", jwtAuthMiddleware, async (req, res) => {
   let userData = req.user.userData;
   try {
-    const userInfo = await User.findOne({ email: userData.email });
+    const userInfo = await User.findOneAndDelete({ email: userData.email });
     if (userInfo == null) {
       return res.status(401).json("User not found");
     }
@@ -87,5 +89,4 @@ router.post("/logout", jwtAuthMiddleware, async (req, res) => {
     res.status(500).json("Internal Server Error");
   }
 });
-
 export default router;

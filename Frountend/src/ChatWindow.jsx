@@ -7,8 +7,15 @@ import { Link } from "react-router-dom";
 import { BiExit } from "react-icons/bi";
 import server from "./environment.js";
 function ChatWindow() {
-  const { prompt, setPrompt, setReply, currThreadId, setSidebar } =
-    useContext(MyContext);
+  const {
+    prompt,
+    setPrompt,
+    setReply,
+    currThreadId,
+    setSidebar,
+    checkAuth,
+    handleLogout,
+  } = useContext(MyContext);
   const [isOpen, setIsOpen] = useState(false);
   const [loader, setLoader] = useState(false);
   const [contrast, setContrast] = useState(false);
@@ -39,27 +46,27 @@ function ChatWindow() {
     }
     setLoader(false);
   };
-  // This function is use to handleLogout
-  const handleLogout = async () => {
-    setContrast(true);
-    let token = localStorage.getItem("token");
-    const options = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      const data = await fetch(`${server}/api/auth/logout`, options);
-      if (data.ok) {
-        localStorage.removeItem("token");
-        window.location.reload();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // // This function is use to handleLogout
+  // const handleLogout = async () => {
+  //   setContrast(true);
+  //   let token = localStorage.getItem("token");
+  //   const options = {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   };
+  //   try {
+  //     const data = await fetch(`${server}/api/auth/logout`, options);
+  //     if (data.ok) {
+  //       localStorage.removeItem("token");
+  //       window.location.reload();
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   const handleProfileClick = () => {
     setIsOpen(!isOpen);
   };
@@ -77,19 +84,32 @@ function ChatWindow() {
           <span className={styles["userIcon"]}>
             <i className="fa-solid fa-user"></i>
           </span>
-          <span>
-            {" "}
-            <Link to="/auth/login" style={{ textDecoration: "none" }}>
-              Login
-            </Link>
-          </span>
-          <span>
-            {" "}
-            <Link to="/auth/signup" style={{ textDecoration: "none" }}>
+          {checkAuth && (
+            <span>
               {" "}
-              SignUp{" "}
-            </Link>
-          </span>
+              <Link to="/auth/login" style={{ textDecoration: "none" }}>
+                Login
+              </Link>
+            </span>
+          )}
+          {checkAuth && (
+            <span>
+              {" "}
+              <Link to="/auth/signup" style={{ textDecoration: "none" }}>
+                {" "}
+                SignUp{" "}
+              </Link>
+            </span>
+          )}
+          {!checkAuth && (
+            <span>
+              {" "}
+              <Link onClick={handleLogout} style={{ textDecoration: "none" }}>
+                {" "}
+                Logout{" "}
+              </Link>
+            </span>
+          )}
         </div>
       </div>
       {isOpen && (

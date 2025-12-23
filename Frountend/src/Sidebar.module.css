@@ -109,8 +109,8 @@ button:hover {
     left: 0;
   }
   .sideBarIcon {
-    display: inline;
-    font-size: 2rem;
-    height: 2rem;
+    display: inline !important;
+    font-size: 2rem !important;
+    height: 2rem !important;
   }
 }

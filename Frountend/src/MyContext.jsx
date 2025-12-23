@@ -10,7 +10,7 @@ export function MyContextProvider({ children }) {
   const [reply, setReply] = useState(null);
   const [sidebar, setSidebar] = useState(false);
   const [currThreadId, setCurrThreadId] = useState(uuidv4());
-
+  const [checkAuth, setCheckAuth] = useState(false);
   function removeTokenIfExpired() {
     const token = localStorage.getItem("token");
     //console.log("Hello1");
@@ -53,6 +53,11 @@ export function MyContextProvider({ children }) {
     }
     setPrompt("");
   }, [reply]);
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setCheckAuth(true);
+    window.location.reload();
+  }
   const providerValues = useMemo(
     () => ({
       prompt,
@@ -70,6 +75,9 @@ export function MyContextProvider({ children }) {
       sidebar,
       setSidebar,
       removeTokenIfExpired,
+      checkAuth,
+      setCheckAuth,
+      handleLogout,
     }),
     [prompt, reply, currThreadId, newChat, prevChats, allThread, sidebar]
   );

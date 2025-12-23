@@ -1,7 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./Login.module.css";
 import server from "./environment.js";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { MyContext } from "./MyContext";
 import { FadeLoader } from "react-spinners";
 function Login() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ function Login() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
 
+  const { setCheckAuth } = useContext(MyContext);
   function emailChange(event) {
     setEmail(event.target.value);
   }
@@ -31,6 +33,7 @@ function Login() {
       };
       const response = await fetch(`${server}/api/auth/login`, options);
       if (response.ok) {
+        setCheckAuth(false);
         const res = await response.json();
         localStorage.setItem("token", res.token);
         navigate("/");
@@ -45,10 +48,12 @@ function Login() {
           navigate("/auth/signup");
         }
       }
+      setContrast(false);
       setEmail("");
       setPassword("");
     } catch (err) {
       alert(err.message);
+      navigate("/");
     }
   };
   return (

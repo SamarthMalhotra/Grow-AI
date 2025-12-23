@@ -7,6 +7,7 @@ function Signup() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [contrast, setContrast] = useState(false);
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const userFieldChange = (event) => {

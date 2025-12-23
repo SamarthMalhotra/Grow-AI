@@ -20,6 +20,7 @@ function Sidebar() {
     setPrevChats,
     sidebar,
     removeTokenIfExpired,
+    setCheckAuth,
   } = useContext(MyContext);
 
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ function Sidebar() {
       });
 
       if (response.ok) {
+        setCheckAuth(false);
         const res = await response.json();
         const filterData = res.map((thread) => ({
           threadId: thread.threadId,
@@ -158,7 +160,7 @@ function Sidebar() {
           <p>By Grow AI &hearts;</p>
         </div>
         {sidebar && (
-          <span className={styles["sidebarIcon"]}>
+          <span className={styles["sideBarIcon"]}>
             <RiCloseLine onClick={() => setSidebar((prev) => !prev)} />
           </span>
         )}
