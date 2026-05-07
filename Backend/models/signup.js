@@ -30,7 +30,6 @@ userSchema.pre("save", async function (next) {
       return next();
     }
     let newPassword = await bcrypt.hash(person.password, 10);
-    console.log(newPassword);
     person.password = newPassword;
     next();
   } catch (err) {

@@ -1,5 +1,5 @@
 import express from "express";
-import getOpenAIAPIResponse from "../utils/openai.js";
+import getOpenAIAPIResponse from "./utils/openai.js";
 import Thread from "../models/thread.js";
 import User from "../models/signup.js";
 import { jwtAuthMiddleware } from "../jwt.js";
@@ -16,7 +16,7 @@ router.get("/thread", jwtAuthMiddleware, async (req, res) => {
       options: { sort: { updatedAt: -1 } },
     });
     //desending of updateAt ...most recent data on to
-    res.json(userThread.threads);
+    res.status(200).json(userThread.threads);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "failed to fetch threads" });
@@ -54,7 +54,7 @@ router.delete("/thread/:threadId", jwtAuthMiddleware, async (req, res) => {
       res.status(404).json({ error: "Thread not found" });
     }
     userInfo.threads = userInfo.threads.filter(
-      (element) => !element._id.equals(deletedThread._id)
+      (element) => !element._id.equals(deletedThread._id),
     );
     userInfo.save();
     res.status(200).json({ success: "Thread Deleted Successfully" });
@@ -91,10 +91,13 @@ router.post("/chat", jwtAuthMiddleware, async (req, res) => {
       res.status(401).json("Something  Wrong");
     }
     const assistantReply = await getOpenAIAPIResponse(message);
+    if (!assistantReply) {
+      return res.status(500).json({ message: "Backend is not working" });
+    }
     thread.messages.push({ role: "assistant", content: assistantReply });
     thread.updatedAt = new Date();
     await thread.save();
-    res.json({ reply: assistantReply });
+    res.status(200).json({ reply: assistantReply });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Something went wrong" });
